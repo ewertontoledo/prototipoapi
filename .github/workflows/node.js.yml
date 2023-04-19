@@ -29,6 +29,7 @@ jobs:
     
 
   deploy:
+      
     runs-on: windows-latest
     needs: [build]
   
@@ -43,6 +44,7 @@ jobs:
       - uses: actions/setup-python@v3
       - uses: aws-actions/setup-sam@v2
       - uses: aws-actions/configure-aws-credentials@v1
+      - uses: appleboy/lambda-action@master
         with:
           aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
           aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
@@ -51,7 +53,13 @@ jobs:
         env:
           CI: true
         run: |
-          npm ci 
+          npm ci
+      - name: zip
+        uses: montudor/action-zip@v0.1.0
+        with:
+          args: zip -qq -r ./bundle.zip ./
       - name: deploy
-        run: |
-          gh repo clone ewertontoledo/prototipoapi
+        run: | 
+          aws lambda create-function --function-name LambdaFunctionOverHttps \ 
+          --zip-file fileb://function.zip --handler index.handler --runtime nodejs18.x \ 
+          --role arn:aws:lambda:us-east-1::runtime:c869d752e4ae21a3945cfcb3c1ff2beb1f160d7bcec3b0a8ef7caceae73c055f
