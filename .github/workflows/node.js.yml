@@ -57,8 +57,6 @@ jobs:
           npm ci
       - name: deploy
         run: | 
-          aws lambda update-function-code \
-            --zip-file fileb://my-function.zip
           aws lambda create-function --function-name LambdaFunctionOverHttps \ 
             --runtime nodejs18.x \
             --zip-file fileb://my-function.zip \
