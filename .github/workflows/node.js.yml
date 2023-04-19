@@ -57,4 +57,4 @@ jobs:
       - name: deploy
         run: | 
           aws lambda create-function --function-name LambdaFunctionOverHttps \ 
-          --role arn:aws:lambda:us-east-1::runtime:c869d752e4ae21a3945cfcb3c1ff2beb1f160d7bcec3b0a8ef7caceae73c055f
+          --role arn:aws:lambda:us-east-1:565589230319:function:lambda-prototipoapi-api
