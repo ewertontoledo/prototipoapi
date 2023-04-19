@@ -31,9 +31,13 @@ jobs:
   deploy:
     runs-on: windows-latest
     needs: [build]
+  
     strategy:
       matrix: 
         node-version: [18.x]
+        
+    env:
+       GH_TOKEN: ${{ github.token }}
     steps:
       - uses: actions/checkout@v3
       - uses: actions/setup-python@v3
