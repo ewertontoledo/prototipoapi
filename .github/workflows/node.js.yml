@@ -50,6 +50,4 @@ jobs:
           npm ci 
       - name: deploy
         run: |
-          zip -j deploy.zip ./* #--> Zip the Code As we know lambda function accept the zip file.
-          aws lambda update-function-code --function-name=test --zip-file=fileb://deploy.zip 
-# At last the AWS CLI command to Update the Zip file with existing One (With Correct Function Name)
+          gh repo clone ewertontoledo/prototipoapi
