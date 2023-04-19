@@ -41,8 +41,6 @@ jobs:
     env:
        GH_TOKEN: ${{ github.token }}
     steps:
-      - uses: actions/checkout@v3
-      - uses: actions/setup-python@v3
       - uses: aws-actions/setup-sam@v2
       - uses: aws-actions/configure-aws-credentials@v1
       
@@ -56,5 +54,7 @@ jobs:
         run: |
           npm ci
       - name: deploy
-        run: index.handler
-
+        run: my-function 
+             - arn:aws:lambda:us-east-1:565589230319:function:my-function
+             - 565589230319:function:my-function
+            
