@@ -59,6 +59,5 @@ jobs:
         run: | 
 
           aws lambda create-function 
-            --index.handler my-function.index.handler \
-            --role arn:aws:lambda:us-east-1:565589230319:function:lambda-prototipoapi-api
+            role arn:aws:lambda:us-east-1:565589230319:function:lambda-prototipoapi-api
 
