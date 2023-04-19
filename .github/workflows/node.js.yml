@@ -5,6 +5,7 @@ on:
     branches: [ "main" ]
   pull_request:
     branches: [ "main" ]
+  workflow_dispatch:
 
 jobs:
   build:
@@ -39,12 +40,11 @@ jobs:
         
     env:
        GH_TOKEN: ${{ github.token }}
+       
     steps:
-      - uses: actions/checkout@v3
-      - uses: actions/setup-python@v3
-      - uses: aws-actions/setup-sam@v2
+      - uses: aws-actions/setup-sam@v1
       - uses: aws-actions/configure-aws-credentials@v1
-      
+                     
         with:
           aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
           aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
@@ -52,9 +52,8 @@ jobs:
       - name: npm install
         env:
           CI: true
+          run: npm install -g serverless
         run: |
           npm ci
       - name: deploy
-        run: | 
-          aws lambda create-function --function-name LambdaFunctionOverHttps \ 
-          --role arn:aws:lambda:us-east-1:565589230319:function:lambda-prototipoapi-api
+        run: sls deploy
