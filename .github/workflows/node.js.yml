@@ -30,12 +30,10 @@ jobs:
     
 deploy: CD
 
-on:
   workflow_call:
    push:
     branches: [ "main" ]
-  pull_request:
-    branches: [ "main" ]
+
  jobs:
   deploy:
     runs-on: windows-latest
